@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="task2">
+<head>
+     <meta charset="utf-8">
+    <title>Hello World</title>
+    <script src="../Libraries/angular.js"></script>
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />   
+    <script>
+
+        // Модель
+
+        var task2 = angular.module("task2", []);
+
+        // Контроллер
+
+        task2.controller("PrintingCtrl", function ($scope) {
+
+            // Поведение / Behavior
+            $scope.inputHandler = function(){
+                document.getElementById("outputField").innerHTML = $scope.text;
+            }
+
+        });
+
+    </script>
+</head>
+
+<body ng-controller="PrintingCtrl">
+<br>
+    <input ng-model="text" placeholder="print smth" ng-change ="inputHandler()" />
+    <h1 id="outputField"></h1>
+</body>
+</html>

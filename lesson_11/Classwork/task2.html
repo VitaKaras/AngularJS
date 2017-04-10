@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="task2">
+<head>
+     <meta charset="utf-8">
+    <title>Hello World</title>
+    <script src="../Libraries/angular.js"></script>
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />   
+    <script>
+
+        // Модель
+        var model = "Введите что-то в поле";
+
+        var task2 = angular.module("task2", []);
+
+        // Контроллер
+
+        task2.controller("PrintingCtrl", function ($scope) {
+            $scope.message = model;
+
+            // Поведение / Behavior
+            $scope.clickHandler = function(){
+                $scope.inputString = $scope.text;
+                $scope.text = "";
+            }
+
+        });
+
+    </script>
+</head>
+
+<body ng-controller="PrintingCtrl">
+    <h4>{{message}}</h4>
+    <input ng-model="text" />
+    <button class="btn btn-primary" ng-click ="clickHandler()">Print down</button>
+    <h1>{{inputString}}</h1>
+</body>
+</html>
