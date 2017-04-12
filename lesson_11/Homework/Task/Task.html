@@ -41,6 +41,26 @@
                 return (date.getMonth()+1)+"/" +date.getDate()+"/"+date.getFullYear();
             }
 
+             $scope.fnClick=function(index){ 
+                console.log(model.tasks[0]);
+                $scope.taskName=angular.copy(model.tasks[index].name);   //usr object will be assigned to $scope.formData...
+                $scope.taskDate=angular.copy(model.tasks[index].date);   
+                $scope.taskDescription=angular.copy(model.tasks[index].description);   
+                $scope.isCompleted=angular.copy(model.tasks[index].completed);  
+                $scope.index = index; 
+            }
+
+            $scope.saveChanges = function(){
+                if( model.tasks.length == 0){
+                    alert("Add some string")
+                } else{
+                model.tasks[$scope.index].name = $scope.taskName;
+                model.tasks[$scope.index].date = $scope.taskDate;
+                model.tasks[$scope.index].description = $scope.taskDescription;
+                model.tasks[$scope.index].completed = $scope.isCompleted;
+            }
+            }
+
         });
 
 
@@ -62,7 +82,7 @@
                     <th>Completed</th>
                 </tr>
             </thead>
-            <tr ng-repeat="task in data.tasks">
+            <tr ng-repeat="task in data.tasks" ng-click="fnClick($index)">
                 <td>{{task.name}}</td>
                 <td>{{task.description}}</td>
                 <td>{{printFormatDate(task.date)}}</td>
@@ -92,6 +112,8 @@
               </div>
               <div class="form-group">
                 <button type="button" class="btn btn-default" ng-click="addNewTask()">Add</button>
+              
+                <button type="button" class="btn btn-default" ng-click="saveChanges()">Save</button>
               </div>
             </form>
         </div>
