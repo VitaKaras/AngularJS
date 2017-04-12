@@ -17,7 +17,8 @@
 
             // Поведение / Behavior
             $scope.inputHandler = function(){
-                document.getElementById("outputField").innerHTML = $scope.text;
+                $scope.message = $scope.text;
+
             }
 
         });
@@ -28,6 +29,6 @@
 <body ng-controller="PrintingCtrl">
 <br>
     <input ng-model="text" placeholder="print smth" ng-change ="inputHandler()" />
-    <h1 id="outputField"></h1>
+    <h1 id="outputField">{{message}}</h1>
 </body>
 </html>
