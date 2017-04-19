@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html lang="en" ng-app="task2">
+<head>
+	<meta charset="utf-8" />
+    <title></title>
+
+    <script src="../Libraries/angular.js"></script>
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+    <script>
+    	var task2 = angular.module("task2", []);
+    	task2.controller("ItemsCtrl", function($scope){
+    		$scope.items = [
+             { name: "B Item", price: 10.9, category: "Category 1", count: 10, tax: 1.12, expiration: 10 },
+             { name: "A Item", price: 1.1, category: "Category 1", count: 8, tax: 0.55, expiration: 12 },
+             { name: "D Item", price: 2.6, category: "Category 2", count: 7, tax: 0.22, expiration: 5 },
+             { name: "C Item", price: 17.5, category: "Category 2", count: 33, tax: 2.77, expiration: 10 }];
+
+
+            $scope.chkbxs = [{label:"Name", val:true },{label:"Price", val:true },{label:"Category", val:true }, {label:"Count", val:true }, {label:"Tax", val:true }, {label:"Expiration", val:true }];    
+    	})  
+	</script>
+	 <style type="text/css">
+    	table, th, td{
+    		text-align: center;
+    	}
+    </style>
+</head>
+<body ng-controller="ItemsCtrl">
+	<div class="controller" >
+		<h1>Categories of items</h1>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+			        <th>Price</th>
+			        <th>Category</th>
+			        <th>Count</th>
+			        <th>Tax</th>
+			        <th>Expiration</th>		
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in items">
+					<td ng-switch on="chkbxs[0].val">
+						<span ng-switch-when="true">
+							{{item.name}}
+						</span>
+					</td>
+					<td ng-switch on="chkbxs[1].val">
+						<span ng-switch-when="true">
+							{{item.price}}
+						</span>
+					</td>
+					<td ng-switch on="chkbxs[2].val">
+						<span ng-switch-when="true">
+							{{item.category}}
+						</span>
+					</td>
+					<td ng-switch on="chkbxs[3].val">
+						<span ng-switch-when="true">
+							{{item.count}}
+						</span>
+					</td>
+					<td ng-switch on="chkbxs[4].val">
+						<span ng-switch-when="true">
+							{{item.tax}}
+						</span>
+					</td>
+					<td ng-switch on="chkbxs[5].val">
+						<span ng-switch-when="true">
+							{{item.expiration}}
+						</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div>
+		    <div ng-repeat="chk in chkbxs">
+		        <input type="checkbox" ng-model="chk.val" />
+		        <label>{{chk.label}}</label>
+		    </div>
+		</div>
+	</div>
+</body>
+</html>
