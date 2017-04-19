@@ -1,0 +1,51 @@
+ <!DOCTYPE HTML>
+<html  lang="en" ng-app="task1">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../Libraries/angular.js"></script>
+    <link rel="stylesheet" href="StyleSheet.css" />
+    <script>
+        var task1 = angular.module("task1", []);
+
+        task1.controller("CalculatorCtrl", function($scope){
+            $scope.result = "";
+
+            $scope.sum = function(){
+                $scope.result = $scope.num1 + $scope.num2;
+            }
+
+            $scope.subst = function(){
+                $scope.result = $scope.num1 - $scope.num2;
+            }
+
+            $scope.mult = function(){
+                $scope.result = $scope.num1 * $scope.num2;
+            }
+
+            $scope.division = function(){
+                if ( $scope.num2 == 0)
+                    alert("Incorrect input in field 2!");
+                else 
+                    $scope.result = $scope.num1 / $scope.num2;
+            }
+          
+        })
+    </script>
+    </head>
+<body ng-controller="CalculatorCtrl">
+    <div id="calculator">
+        <form>
+            <input type="number" id="field1" ng-model="num1" />
+            <input type="number" id="field2" ng-model="num2" /> <br />
+            <div id="buttons">
+                <input type="button" value="+" id="key2" ng-click="sum()"/>
+                <input type="button" value="-" id="key3" ng-click="subst()"/><br />
+                <input type="button" value="*" id="key4" ng-click="mult()"/>
+                <input type="button" value="/" id="key5" ng-click="division()"/>
+                <input type="text" id="result" value={{result}} />
+            </div>
+        </form>
+    </div>
+</body>
+</html>
