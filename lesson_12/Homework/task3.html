@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="task3">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="../Libraries/angular.js"></script>
+    <link href="../Libraries/bootstrap.css" rel="stylesheet"/>
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet"/>
+    <style>
+       label, button, b {
+           display: block;
+           margin-left: 40px;
+        }
+    </style>
+    <script>
+        var task3 = angular.module('task3', []);
+        task3.controller('phoneController', function($scope) {
+
+        $scope.data = {};
+        $scope.modes = [{
+          value: '1',
+          label: 'What is the color of blood?', 
+          answers:["Blue", "Yellow", "Black", "Red"] 
+        },{
+          value: '2',
+          label: 'What are clothes made of?',
+          answers: ["Cloth", "Paper", "Wood", "Glass"] 
+        }, {
+          value: '3',
+          label: 'Which has the sweetest taste?',
+          answers: ["Spaghetti", "Hot dogs", "Honey", "Peanut Butter"] 
+        },{
+          value: '4',
+          label: 'Which tastes the most sour?',
+          answers: ["Apple", "Banana", "Orange", "Lemon"]
+        },{
+          value: '5',
+          label: 'Which is the hottest?',
+          answers: ["Light bulb", "Pancake", "Flame", "Gun"] 
+        }];
+
+        $scope.correctAnswers = ["3", "0", "2", "3", "2"]; 
+
+        function start(){
+          $scope.correctAnswersCount = 0;
+          $scope.result = [];
+        }
+
+        start();
+
+        $scope.checkTest = function(){
+          var sRes = $scope.result;
+           $scope.result.forEach(function(item, i, sRes ){
+
+            if(item == $scope.correctAnswers[i]){
+              $scope.correctAnswersCount++;
+            }
+
+          })
+           alert("Your score: " + $scope.correctAnswersCount);
+           start();
+        }
+
+      });
+    </script>
+</head>
+<body>
+  <div ng-controller="phoneController" ng-init="nodeParent=indexMode" >
+    <div class="radio" ng-repeat="button in modes">
+      <label>
+        <input type="radio" ng-model="data.mode" value="{{button.value}}" name="modes"/>{{button.label}}  
+      </label>
+    </div>
+    <br>
+    <div class="radio" ng-switch on="data.mode" >
+      <div ng-switch-when="1">
+        <label ng-repeat="answer in modes[0].answers">
+          <input type="radio" ng-model='result[0]' value="{{$index}}" name="q1"> {{answer}}
+        </label>
+      </div>
+      <div ng-switch-when="2">
+        <label ng-repeat="answer in modes[1].answers">
+          <input type="radio" ng-model='result[1]' value="{{$index}}" name="q2" > {{answer}}  
+        </label>
+      </div>
+      <div ng-switch-when="3">
+        <label ng-repeat="answer in modes[2].answers">
+          <input type="radio" ng-model='result[2]' value="{{$index}}" name="q3"> {{answer}} 
+        </label>
+      </div>
+      <div ng-switch-when="4">
+        <label ng-repeat="answer in modes[3].answers">
+          <input type="radio" ng-model='result[3]' value="{{$index}}" name="q4"> {{answer}} 
+        </label>
+      </div>
+      <div ng-switch-when="5">
+        <label ng-repeat="answer in modes[4].answers">
+          <input type="radio" ng-model='result[4]' value="{{$index}}" name="q5" > {{answer}}  
+        </label>
+      </div>
+      <div ng-switch-default>
+        <b>Check some question and give answer</b>
+      </div>
+    </div>
+    <button type="button" class="btn btn-default" ng-click="checkTest()">Finish</button>
+</div>
+</body>
+</html>
