@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="task1">
+<head>
+    <meta charset="utf-8" />
+    <script src="../Libraries/angular.js"></script>
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <title></title>
+    <style>
+        .test {
+            margin: 30px;
+            width: 200px;
+            height: 200px;
+            border: 1px solid blue;           
+        }
+        .form {
+             border-radius: 20px;
+        }
+        .color {
+            background-color: yellow;
+        }
+        .btn{
+            margin-left: 30px;
+        }
+    </style>
+    <script>
+        angular.module("task1", [])
+        .controller("addStyleCtrl", function ($scope) {
+            $scope.changeStyle = function(){
+                $scope.newClassName = ["form", "color"];
+            }
+        });
+    </script>
+</head>
+<body ng-controller="addStyleCtrl">
+    <div class="test" ng-class="newClassName"></div>
+    <button type="button" class="btn btn-default" ng-click="changeStyle()">Change style</button>    
+</body>
+</html>
