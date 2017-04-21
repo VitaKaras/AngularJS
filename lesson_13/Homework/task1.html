@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="task1">
+<head>
+    <meta charset="utf-8" />
+    <script src="../Libraries/angular.js"></script>
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <title></title>
+    <style>
+        .bold {font-weight: bold;}
+        .italic {font-style: italic;}
+        .color {color: blue;}
+        .test {
+            margin: 30px;
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;   
+            padding: 5px;        
+        }
+        label{
+            margin-left: 30px;
+        }
+    </style>
+    <script>
+        var task1 = angular.module('task1', [])
+        .controller('mainCtrl', function ($scope) {
+             $scope.styleObj = {
+                bold: true,
+                italic: false,
+                color: false
+            }
+        })
+    </script>
+</head>
+<body>
+    <div class="panel panel-primary" ng-controller="mainCtrl" ng-cloak>
+        <div class="test" ng-class="styleObj"> Создайте три разных CSS класса, которые по-разному будут оформлять блок текста на странице. Реализуйте возможность выбирать стиль для оформления страницы с помощью кнопок или checkbox</div>
+        <label><input ng-model="styleObj.bold" type="checkbox">Bold</label>
+        <label><input ng-model="styleObj.italic" type="checkbox">Italic</label>
+        <label><input ng-model="styleObj.color" type="checkbox">Color</label>
+    </div>
+</body>
+</html>

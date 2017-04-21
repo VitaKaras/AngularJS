@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="task2">
+<head>
+    <meta charset="utf-8" />
+    <script src="../Libraries/angular.js"></script>
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <title></title>
+    <style>
+    	.columnDiv, input{
+    		display: block;
+            margin: 5px;
+    	}
+    </style>
+    <script>
+    	var task2 = angular.module('task2', [])
+        .controller('mainCtrl', function ($scope) {
+            $scope.items = ["Life is like a mirror; we get the best results when we smile at it.",
+            				"It’s not what you do; it's how you do it! It’s not what you see; it’s how you look at it! It’s not how your life is; it’s how you live it.",
+            				"Life is full of beauty. Notice it. Notice the bumblebee, the small child, and the smiling faces. Smell the rain, and feel the wind. Live your life to the fullest potential, and fight for your dreams.",
+            				"Life is like a piano... what you get out of it depends on how you play it.",
+            				"Our truest life is when we are in dreams awake. - Henry David Thoreau",
+            				"It is better to be hated for who you are than to be loved for what you are not.",
+            				"Instead of always judging all other people all the time, take some time and try judging yourself, and ask yourself whether you are what you think you are.",
+            				"Always do what you are afraid to do.",
+            				"It is better to be hated for who you are than to be loved for what you are not.",
+            				"Holding on to anger is like grasping a hot coal with the intent of throwing it at someone else; you are the one who gets burned. - Buddha"];
+
+           var inputString = "";
+           $scope.findBySentence = function(){
+           		inputString = $scope.searchString;
+           }
+
+           $scope.filterSearch = function(item){
+           		return String(item).toLowerCase().indexOf(inputString) != -1;
+           }           
+        });
+    </script>
+</head>
+<body>
+	<div ng-controller="mainCtrl" ng-cloak>
+		<label><input type="text" ng-model="searchString"></label>
+		<button type="button" class="btn btn-default" ng-click="findBySentence()">Search</button>
+		<div class="columnDiv" ng-repeat="item in items | filter : filterSearch track by $index">
+			<div>{{$index+1}}&nbsp;{{item}}</div><hr>
+		</div>
+	</div>
+</body>
+</html>

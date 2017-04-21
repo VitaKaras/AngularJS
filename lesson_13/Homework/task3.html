@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="task3">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <script src="../Libraries/angular.js"></script>
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+    <style>
+        legend{
+            text-align: center;
+            width: 700px;
+        }
+        form .ng-valid.ng-dirty {
+            background-color: lightgreen;
+        }
+        form .ng-invalid.ng-dirty {
+            background-color: lightcoral;
+        }
+    </style>
+    <script>
+        var task3 = angular.module('task3', [])
+        .controller('mainCtrl', function ($scope) {
+
+            $scope.nameRegex = /^[a-zA-Z]|[а-яА-Я]{3,20}$/;
+            $scope.mailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]+$/;
+            $scope.phoneRegex = /^[0-9]*$/;
+
+            $scope.submitHandler = function(isvalid) {
+              (isvalid) ? alert('Form is Valid, sending data!)') : alert('Form is invalid!');
+            }
+        });
+    </script>
+</head>
+<body ng-controller="mainCtrl">
+    <form class="form-horizontal" name="myForm" novalidate ng-submit="submitHandler(myForm.$valid)">
+        <fieldset>
+        <legend>Register Here</legend>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="textinput">First Name</label>  
+          <div class="col-md-4">
+          <input placeholder="Insert your First Name" class="form-control input-md" required  ng-model="myForm.firstName" ng-pattern="nameRegex" type="text">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="textinput">Last Name</label>  
+          <div class="col-md-4">
+          <input placeholder="Insert your Last Name" class="form-control input-md" required  ng-model="myForm.lastName" ng-pattern="nameRegex" type="text">
+          </div>
+        </div>
+
+         <div class="form-group">
+          <label class="col-md-4 control-label" for="textinput">Patronym</label>  
+          <div class="col-md-4">
+          <input placeholder="Insert your Patronym" class="form-control input-md" required  ng-model="myForm.patronym" ng-pattern="nameRegex" type="text">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="textinput">Email</label>  
+          <div class="col-md-4">
+          <input placeholder="Insert your Email" class="form-control input-md" required  ng-model="myForm.email" ng-pattern="mailRegex" type="email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="textinput">Phone</label>  
+          <div class="col-md-4">
+          <input placeholder="Insert your Phone" class="form-control input-md" required  ng-model="myForm.phone" ng-pattern="phoneRegex" type="number">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="textinput">Password</label>  
+          <div class="col-md-4">
+          <input placeholder="Insert your Password" class="form-control input-md" required  ng-model="myForm.password" type="password">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="textinput">Confirm Password</label>  
+          <div class="col-md-4">
+          <input placeholder="Confirm your Password" class="form-control input-md" required  ng-model="myForm.confirmPassword" ng-pattern="myForm.password" type="password">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="singlebutton"> </label>
+          <div class="col-md-4">
+            <input class="btn btn-info" type="submit" ng-disabled="myForm.$invalid" > <br />
+          </div>
+        </div>
+
+        </fieldset>
+</form>
+</body>
+</html>
