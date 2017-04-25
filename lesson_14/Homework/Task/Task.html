@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="ToDoList">
+<head>
+    <title>ToDo List (Task2)</title>
+    <script src="../../Libraries/angular.js"></script>
+    <link href="../../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../../Libraries/bootstrap-theme.css" rel="stylesheet" />
+    <script>
+        
+        var model = {
+            tasks: []
+        }        
+
+        function Task (name, description, date, completed){
+            this.name = name;
+            this.description = description; 
+            this.date = date;
+            this.completed = completed;
+        }
+
+        var toDoList = angular.module("ToDoList", [])
+        .factory("sendAllTasks", function () {
+           return function ($http, data) {
+               var jsonData = angular.toJson(data);
+               $http({
+                   method: "POST",
+                   url: "toDoList.com",
+                   data: jsonData
+               }).then(
+                    function (response) {
+                        console.log("Success: " + response.statusText);
+                    },
+                    function (response) {
+                        console.log("Error: " + response.statusText)
+                    }
+               );
+               return jsonData;
+           }
+        })
+        .controller("ToDoLIstCtrl",["$scope", "$http", "sendAllTasks", function($scope, $http, sendAllTasks){
+            $scope.data = model;
+
+            $scope.init = function(){
+                $scope.taskName = "";
+                $scope.taskDescription = "";
+                $scope.taskDate = "";
+                $scope.isCompleted ="";
+            }
+
+            $scope.addNewTask = function(){
+                $scope.data.tasks.push(new Task($scope.taskName, $scope.taskDescription, $scope.taskDate, $scope.isCompleted));           
+                $scope.init();
+                $scope.taskData = sendAllTasks($http, $scope.data);
+            }
+
+
+            $scope.showChecked = function(completed){
+                return completed ? 'Yes' : 'No';
+            }
+
+            $scope.printFormatDate = function(date){
+                return (date.getMonth()+1)+"/" +date.getDate()+"/"+date.getFullYear();
+            }
+
+            $scope.fnClick=function(index){                 
+                $scope.taskName=angular.copy(model.tasks[index].name);   //usr object will be assigned to $scope.formData...
+                $scope.taskDate=angular.copy(model.tasks[index].date);   
+                $scope.taskDescription=angular.copy(model.tasks[index].description);   
+                $scope.isCompleted=angular.copy(model.tasks[index].completed);  
+                $scope.index = index; 
+            }
+
+            $scope.saveChanges = function(){
+                if( model.tasks.length == 0){
+                    alert("Add some string")
+                } else{
+                    model.tasks[$scope.index].name = $scope.taskName;
+                    model.tasks[$scope.index].date = $scope.taskDate;
+                    model.tasks[$scope.index].description = $scope.taskDescription;
+                    model.tasks[$scope.index].completed = $scope.isCompleted;
+                    $scope.taskData = sendAllTasks($http, $scope.data);
+                    $scope.init();
+                }
+            }         
+        }]);
+    </script>
+
+</head>
+<body ng-controller="ToDoLIstCtrl">
+
+    <div class="container">
+
+        <h3>ToDo List</h3>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Completed</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="task in data.tasks" ng-click="fnClick($index)">
+                <td>{{task.name}}</td>
+                <td>{{task.description}}</td>
+                <td>{{printFormatDate(task.date)}}</td>
+                <td>{{showChecked(task.completed)}}</td>
+            </tr>
+        </table>
+
+        <div>
+            <!-- Форма для добавления новых задач -->
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="nameField">Name</label>
+                <input type="text" class="form-control" id="nameField" placeholder="Name" ng-model="taskName">
+              </div>
+              <div class="form-group">
+                <label for="dateField">Due Date</label>
+                <input type="Date" class="form-control" id="dateField" placeholder="Date" ng-model="taskDate">
+              </div>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea  class="form-control" placeholder="Describe" id="description" ng-model="taskDescription"></textarea> 
+              </div>
+              <div class="form-group">              
+                <label for="checked"> Completed</label>
+                <br>
+                <input type="checkbox" id="checked" ng-model="isCompleted"> 
+              </div>
+              <div class="form-group">
+                <button type="button" class="btn btn-default" ng-click="addNewTask()">Add</button>
+              
+                <button type="button" class="btn btn-default" ng-click="saveChanges()">Save</button>
+              </div>
+            </form>
+        </div>
+        <div class="taskData" ng-if="taskData">Data for sending to server: {{taskData}}</div>
+    </div>
+</body>
+</html>

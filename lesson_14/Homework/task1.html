@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="task1">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="../Libraries/bootstrap-theme.css"/>
+  <link rel="stylesheet" href="../Libraries/bootstrap.css"/>
+  <script src="../Libraries/angular.js"></script>
+  <script>    
+    angular.module("task1", [])
+           .controller("mainController", mainController)
+           .factory('factoryService', function(){
+              return function() {
+                return {
+                  add: function(a, b) { return a + b; },
+                  mul: function(a, b) { return a * b; },
+                  div: function(a, b) { return a / b; },
+                  sub: function(a, b) { return a - b; },
+                };
+              }
+           })
+           .service('serviceServ', function(){
+              this.add = function(a, b) { return a + b; };
+              this.mul = function(a, b) { return a * b; };
+              this.div = function(a, b) { return a / b; };
+              this.sub = function(a, b) { return a - b; };
+           })
+           .provider('providerService', function(){
+              return {
+                $get: function(){
+                  return function(){
+                    return {
+                      add: function(a, b) { return a + b; },
+                      mul: function(a, b) { return a * b; },
+                      div: function(a, b) { return a / b; },
+                      sub: function(a, b) { return a - b; },
+                    };    
+                  }                  
+                }
+              }
+           })
+      function mainController($scope, factoryService, providerService, serviceServ) {
+        console.log("2+5="+ factoryService().add(2, 5));
+        console.log("3*4=" + providerService().mul(3, 4));
+        console.log("8/4=" + serviceServ.div(8, 4));
+        console.log("6-2=" + providerService().sub(6, 2));
+      }
+    </script>
+</head>
+<body>
+  <section class="container" ng-controller="mainController"></section>
+</body>
+</html>
