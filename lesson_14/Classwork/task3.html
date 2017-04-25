@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="task3">
+<head>
+    <meta charset="utf-8" />
+    <script src="../Libraries/angular.js"></script>
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <script>
+    angular.module('task3', [])
+        .controller('dataCtrl', function ($scope, $http) {
+          $scope.getItems = function () {
+            $http.get('data/data.json')
+                 .then(function(response) {
+                    console.log("Status: " + response.status);
+                    $scope.items = response.data;
+                 })
+                 .catch(function(error) {
+                    console.error(error.status);
+                    console.error(error.statusText);
+                 })
+          }
+    })
+    </script>
+</head>
+<body  ng-controller="dataCtrl">       
+    <button class="btn btn-primary" ng-click="getItems()">
+        <h4>Get Items!</h4>
+    </button>
+    <table class="table">
+        <tr ng-repeat="item in items">
+            <td>{{item.name}}</td>
+            <td>{{item.price}}</td>
+        </tr>
+    </table>       
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="task1">
+<head>
+ 	<meta charset="utf-8" />
+    <script src="../Libraries/angular.js"></script>
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <title></title>
+    <script>
+    	var task1 = angular.module("task1", [])
+    		.controller("mainCtrl",['$scope', 'clickCounterService', '$log', function($scope, clickCounterService, $log){
+    			$scope.counterClicks = function(){
+    				$log.log("clicks: " + clickCounterService());
+    			}
+    		}])
+    		.factory("clickCounterService", function(){
+    			var clickCounter = 1;
+    			return function(){
+    				return clickCounter++;
+    			}
+    		})
+    </script>
+</head>
+<body>
+	<div ng-controller="mainCtrl">
+		<input type="button" class="btn-lg btn-success" value="Click" ng-click="counterClicks()">
+	</div>
+</body>
+</html>
