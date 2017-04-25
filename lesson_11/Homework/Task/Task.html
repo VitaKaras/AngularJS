@@ -23,13 +23,16 @@
         toDoList.controller("ToDoLIstCtrl", function($scope){
             $scope.data = model;
 
-            $scope.addNewTask = function(){
-                $scope.data.tasks.push(new Task($scope.taskName, $scope.taskDescription, $scope.taskDate, $scope.isCompleted));
-           
+            $scope.init = function(){
                 $scope.taskName = "";
                 $scope.taskDescription = "";
                 $scope.taskDate = "";
                 $scope.isCompleted ="";
+            }
+
+            $scope.addNewTask = function(){
+                $scope.data.tasks.push(new Task($scope.taskName, $scope.taskDescription, $scope.taskDate, $scope.isCompleted));
+                $scope.init();
             }
 
 
@@ -54,11 +57,12 @@
                 if( model.tasks.length == 0){
                     alert("Add some string")
                 } else{
-                model.tasks[$scope.index].name = $scope.taskName;
-                model.tasks[$scope.index].date = $scope.taskDate;
-                model.tasks[$scope.index].description = $scope.taskDescription;
-                model.tasks[$scope.index].completed = $scope.isCompleted;
-            }
+                    model.tasks[$scope.index].name = $scope.taskName;
+                    model.tasks[$scope.index].date = $scope.taskDate;
+                    model.tasks[$scope.index].description = $scope.taskDescription;
+                    model.tasks[$scope.index].completed = $scope.isCompleted;
+                    $scope.init();
+                }
             }
 
         });
