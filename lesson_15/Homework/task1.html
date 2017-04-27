@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="task1">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="../Libraries/bootstrap-theme.css"/>
+  <link rel="stylesheet" href="../Libraries/bootstrap.css"/>
+  <script src="../Libraries/angular.js"></script>
+  <script>
+    angular.module("task1", [])
+      .controller("mainCtrl",  function($scope, $interval) {
+        var timer;
+              
+        $scope.startTimer = function() {
+           $scope.time = 0; 
+            timer = $interval(function () {
+              $scope.time++;
+            }, 1000);
+        }
+        $scope.stopTimer = function() {
+          $interval.cancel(timer);
+        }
+      });
+  </script> 
+</head>
+<body>
+  <div ng-controller="mainCtrl">
+    <h3 class="output">Time:{{time}}</h3>
+    <button type="button" class="btn btn-success" ng-click="startTimer()">Start</button>
+    <button type="button" class="btn btn-danger" ng-click="stopTimer()">Stop</button>
+  </div>
+</body>
+</html>

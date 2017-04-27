@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="task3">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../Libraries/angular.js"></script>
+    <script src="angular-smooth-scroll.js"></script>
+    <link rel="stylesheet" href="../Libraries/bootstrap.css">
+    <script>
+        angular.module('task3', ["smoothScroll"])
+            .controller('mainCtrl',  function ($scope, $anchorScroll, $location) {
+                $scope.items = [ {id: '1', name: 'Item1'},
+                                 {id: '2', name: 'Item2'},
+                                 {id: '3', name: 'Item3'},
+                                 {id: '4', name: 'Item4'},
+                                 {id: '5', name: 'Item5'}];
+
+                $location.path(''); 
+                $scope.show = function (id) {
+                    ($location.hash() !== id) ? $location.hash(id) : $anchorScroll();
+                }
+            });
+    </script>
+    <style>
+        div {
+            width: 100%;
+            height: 600px;
+            border-top: 2px solid black;
+            text-align: center;
+            font-size: 25px;
+        }
+        .innerDiv{
+            padding-top: 50px;
+        }
+        nav {
+            position: fixed;
+            width: 100%;
+            background-color: #ffff99;
+        }
+        ul {
+            cursor: pointer;          
+        }
+        li {
+            display: inline-block;
+            padding: 15px;
+        }        
+    </style>
+</head>
+<body ng-controller="mainCtrl">
+    <nav>
+        <ul>
+            <li ng-repeat="item in items" scroll-to="{{item.id}}" offset="50" duration="1400">{{item.name}}</li>
+        </ul>
+    </nav>
+    <div>
+        <div ng-repeat="item in items" id="{{item.id}}" >
+            <div class="innerDiv">{{item.name}}</div>
+        </div>
+    </div>
+</body>
+</html>
