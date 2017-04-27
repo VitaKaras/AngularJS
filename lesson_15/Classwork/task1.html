@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="task1">
+<head>
+  <meta charset="utf-8" />
+    <title></title>
+    <script src="../Libraries/angular.js"></script>
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <script>
+    var task1 = angular.module("task1", []);
+        task1.controller("mainCtrl", function ($scope, $parse) {
+            $scope.expr = "Input expression";           
+            $scope.parseExpression = function () {
+               var model = "";                 
+                 if(isFinite($scope.expr[($scope.expr).length -1])){
+                    var fn = $parse($scope.expr);
+                    var res = fn(model);
+                    if(isFinite(res)){
+                      $scope.result = res;
+                    } else {
+                      alert("Incorrect input");
+                   }
+                  } else {
+                    alert("Incorrect input");
+                  }
+            }
+        })
+    </script>
+</head>
+<body ng-controller="mainCtrl">
+    <p style="font-style:italic">
+        <b>Calculator</b>
+        <p>Use just this operations : "+", "-", "*", "/"</p>
+    <input type="text" ng-model="expr" />
+    <button ng-click="parseExpression()">$parse</button><br><br>
+    <p>Result: {{result}}</p>
+</body>
+</html>

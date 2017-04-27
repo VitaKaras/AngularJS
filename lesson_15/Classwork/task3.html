@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="task3">
+<head>
+    <title></title>
+    <script src="../Libraries/angular.js"></script>
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <script>
+        angular.module("task3", [])
+       .controller("mainCtrl", function ($scope, $compile, $interpolate) {
+        var string = "Hello my name is {{name}}"
+        var data = { name: "<strong>Ivan</strong>" }        
+            $scope.compileExpression = function () {
+                var name = $compile(data.name)(data);
+                angular.element(document.querySelector('#res')).append(string + name);               
+            }
+        });
+    </script>
+</head>
+<body ng-controller="mainCtrl">
+    <button ng-click="compileExpression()">Get message</button>
+    <p id="res"></p>
+</body>
+</html>

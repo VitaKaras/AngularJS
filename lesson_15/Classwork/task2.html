@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app="task2">
+<head>
+    <title></title>
+    <script src="../Libraries/angular.js"></script>
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <script>
+        angular.module("task2", [])
+       .controller("mainCtrl", function ($scope, $interpolate) {
+        var string = "Hello my name is {{name}}"
+        var data = { name: "<strong>Ivan</strong>" }        
+            $scope.interpolateExpression = function () {
+                angular.element(document.querySelector('#res')).append($interpolate(string)(data));               
+            }
+        });
+    </script>
+</head>
+<body ng-controller="mainCtrl">
+    <button ng-click="interpolateExpression()">Get message</button>
+    <p id="res"></p>
+</body>
+</html>
