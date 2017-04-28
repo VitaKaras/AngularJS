@@ -1,0 +1,44 @@
+﻿<!doctype html>
+<html ng-app="task2">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../Libraries/angular.js"></script>
+    <link rel="stylesheet" href="../Libraries/bootstrap.css">
+    <style>
+        input {
+            display: block;
+        }
+    </style>
+    <script>
+        angular.module("task2", [])
+            .directive('addForm', function () {
+                return {
+                    restrict: "A",
+                    controller: function ($scope) {
+                        $scope.data = [
+                            { name: "username", type: "text", pattern: "nameRegex" },
+                            { name: "login", type: "text", pattern: "nameRegex" },
+                            { name: "password", type: "password", pattern: "passwordRegex" },
+                            { name: "email", type: "email", pattren: "mailRegex" }];
+                        $scope.submitHandler = function (isvalid) {
+                            (isvalid) ? alert('Form is Valid, sending data!)') : alert('Form is invalid!');
+                        }
+                        $scope.nameRegex = /^.{3,20}$/;
+                        $scope.mailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]+$/;
+                        $scope.passwordRegex = /^\w/;
+                    }                   
+                }
+            }) 
+    </script>
+</head>
+<body add-form="data" >
+    <form novalidate name="myForm" ng-submit="submitHandler(myForm.$valid)" >
+        <label>{{data[0].name}}</label><input type={{data[0].type}} ng-pattern={{data[0].pattern}} ng-model=username[$index] required>
+        <label>{{data[1].name}}</label><input type={{data[1].type}} ng-pattern={{data[1].pattern}} ng-model="login[$index]">
+        <label>{{data[2].name}}</label><input type={{data[2].type}} ng-pattern={{data[2].pattern}} ng-model="password[$index]">
+        <label>{{data[3].name}}</label><input type={{data[3].type}} ng-pattern={{data[3].pattern}} ng-model="email[$index]">
+        <input class="btn btn-primary" type="submit"  value="Submit">
+    </form>
+</body>
+</html>

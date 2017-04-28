@@ -1,0 +1,40 @@
+﻿<!doctype html>
+<html ng-app="task2">
+<head>
+    <meta charset="UTF-8">
+
+    <title></title>
+    <script src="../Libraries/angular.js"></script>
+    <link  rel="stylesheet" href="../Libraries/bootstrap.css">
+    <style>
+        input{
+            display: block;
+        }
+    </style>
+    <script>
+        angular.module("task2", [])
+            .directive('addForm', function () {
+                return{
+                    restrict: "A",
+                    controller: function ($scope) {
+                        $scope.data = [
+                            {name: "username", type: "text"},
+                            {name: "login", type: "text"},
+                            {name: "password", type: "password"},
+                            {name: "email", type: "email"}]
+                    }
+                }
+
+            })
+           
+    </script>
+</head>
+<body add-form = "data">
+    <form>
+        <label>{{data[0].name}}</label><input type={{data[0].type}}>
+        <label>{{data[1].name}}</label><input type={{data[1].type}}>
+        <label>{{data[2].name}}</label><input type={{data[2].type}}>
+        <label>{{data[3].name}}</label><input type={{data[3].type}}>
+    </form>
+</body>
+</html>

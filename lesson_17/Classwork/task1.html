@@ -1,0 +1,26 @@
+<!doctype html>
+<html  ng-app="task1">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src=" ../Libraries/angular.js"></script>
+    <link rel="stylesheet" href="../Libraries/bootstrap.css">
+    <script>
+        angular.module("task1", [])
+            .controller('mainCtrl',["$scope", function ($scope) {
+                $scope.list = [1, 2, 0, 8, 10, 100, 4, 0, 9]
+            }])
+            .directive('itemList', function () {
+                 return {
+                    scope:{
+                        list: "=itemList"
+                    },
+                    template: "<h1>List: </h1><li ng-repeat='item in list track by $index'> {{item}}</li>"
+            }
+            })        
+    </script>            
+</head>
+<body ng-controller="mainCtrl" >
+    <div item-list='list'></div>
+</body>
+</html>
