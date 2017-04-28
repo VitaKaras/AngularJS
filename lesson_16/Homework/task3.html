@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html  ng-app="task3">
+<head>
+    <meta charset="utf-8" />
+    <script src="../Libraries/angular.js"></script>
+    <script src="../Libraries/angular_route.js"></script>
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <title></title>
+    <script>
+
+        var people = [{ name: 'Vasya', age: 20, email: 'vasya@mail.ru', employed: false },
+                      { name: 'Masha', age: 25, email: 'm@m', employed: true },
+                      { name: 'Petya', age: 27, email: 'petya@stuff', employed: true },
+                      { name: 'John', age: 36, email: 'johnDoe@mail', employed: true },
+                      { name: 'Jane', age: 28, email: 'janeDoe@mail', employed: false }];
+
+        var app = angular.module("task3", ['ngRoute'])
+
+        .config(function ($routeProvider, $locationProvider) {
+            $routeProvider
+                .when('/home', {
+                    templateUrl: 'task/home2.html',
+                    controller: 'HomeCtrl'
+                })
+                 //передача параметров через адресную строку
+                .when('/contact/:name/:age/:email/:employed', {
+                    templateUrl: 'task/contact.html',
+                    controller: 'ContactCtrl'
+                })
+                .otherwise({
+                    redirectTo: '/home2'
+                })
+            $locationProvider.html5Mode({ enable: true, requireBase: true });
+        })
+        .controller('MainCtrl', function ($scope, $location) {
+              $scope.goToHome = function () {
+
+                  $location.path('/home');
+              }
+              $scope.goToContact = function () {
+                  $location.path('/contact')
+              }
+        })
+        .controller('HomeCtrl', function ($scope, $location) {
+            $scope.people = people;
+            $scope.goTo = function (item) {
+                //передать параметры в адресную строку
+                $location.path('/contact/' + item.name + '/' + item.age + '/' + item.email + '/' + item.employed);
+        }  
+        .controller('ContactCtrl', ["$scope", "$routeParams", function ($scope, $routeParams) {
+            $scope.name = $routeParams.name;
+            $scope.age = $routeParams.age;
+            $scope.email = $routeParams.email;
+            $scope.employed = $routeParams.employed === "true";
+        }])
+    </script>
+</head>
+<body>
+    <<div class="well" ng-controller="MainCtrl">
+        <ul class="nav nav-tabs">
+            <li><a href="#/home">Home</a></li>
+            <li><a href="#/contact">Contact</a></li>
+        </ul>
+    </div>
+    <div class="panel" ng-view></div>
+</body>
+</html>

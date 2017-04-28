@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html ng-app="task2">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../Libraries/angular.js"></script>
+    <script src="../Libraries/angular_route.js"></script>
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <script>
+        var people = [{ name: 'Vasya', age: 20, email: 'vasya@mail.ru', employed: false },
+                      { name: 'Masha', age: 25, email: 'm@m', employed: true },
+                      { name: 'Petya', age: 27, email: 'petya@stuff', employed: true },
+                      { name: 'John', age: 36, email: 'johnDoe@mail', employed: true },
+                      { name: 'Jane', age: 28, email: 'janeDoe@mail', employed: false }];
+
+        var app = angular.module("task2", ["ngRoute"])
+            .config(function ($routeProvider, $locationProvider) {
+                $routeProvider
+                    .when("/home", {
+                        templateUrl: "task/home2.html"
+                    })
+                    .when("/contact", {
+                        templateUrl: "task/contact.html"
+                    })
+                    .otherwise({
+                        redirectTo: "/home"
+                    });
+                $locationProvider.html5Mode({ enable: true, requireBase: true });
+            })
+           app.controller("mainCtrl", ["$scope", function ($scope) {
+                $scope.people = people;
+           }]);
+    </script>
+</head>
+<body>
+    <div class="well" ng-controller="mainCtrl">
+        <ul class="nav nav-tabs">
+            <li><a href="#/home">Home</a></li>
+            <li><a href="#/contact">Contact</a></li>
+        </ul>
+    </div>
+    <div class="panel" ng-view></div>
+</body>
+</html>
