@@ -1,0 +1,53 @@
+ <!doctype html>
+<html ng-app="task3">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../Libraries/angular.js"></script>
+    <link rel="stylesheet" href="../Libraries/bootstrap.css">
+</head>
+<style>      
+      nav {
+            position: fixed;
+            width: 100%;
+            background-color: #ffff99;
+        }
+        ul {
+            cursor: pointer;          
+        }
+        li {
+            display: inline-block;
+            padding: 15px;
+        }        
+    </style>
+<script>
+  var app = angular.module("task3", []);
+        app.controller("mainCtrl", ["$scope", function ($scope) {
+           $scope.items = [
+                    {name: 'Home', href: '#/'},
+                    {name: 'Services', href: '#/services'},
+                    {name: 'Work', href: '#/work'},
+                    {name: 'Clients', href: '#/clients'},
+                    {name: 'Contact', href: '#/contact'}
+            ];             
+        }]);
+       app.directive("navMenu", function () {
+            return {
+                restrict: "A",
+                replace: true,
+                scope: {
+                    menu: "=navMenu"
+                },
+                template: '<li class="item" ng-repeat="item in menu"><a href="{{item.href}}">{{item.name}}</a></li>'
+            };
+        });          
+    </script>
+<body ng-controller="mainCtrl">
+    <nav>
+        <ul>
+            <li nav-menu="items"></li>
+        </ul>
+    </nav>
+</body>
+</html>
+
