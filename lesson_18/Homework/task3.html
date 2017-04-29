@@ -1,0 +1,22 @@
+<!doctype html>
+<html  ng-app="task1">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src=" ../Libraries/angular.js"></script>
+    <link rel="stylesheet" href="../Libraries/bootstrap.css">
+    <script>
+        angular.module("myApp", [])
+        .directive("dialogBox", function () {
+            return{
+                restrict: "AE",
+                transclude: true,
+                template: "<p ng-transclude=''></p>"
+            }
+        })
+    </script>
+</head>
+<body>
+	<p dialog-box> Создайте директиву dialogBox, которая будет выводить на экран в диалоговом окне содержимое элемента, к которому привязана директива. </p>
+</body>
+</html>

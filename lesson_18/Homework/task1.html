@@ -1,0 +1,59 @@
+<!doctype html>
+<html  ng-app="task1">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src=" ../Libraries/angular.js"></script>
+    <link rel="stylesheet" href="../Libraries/bootstrap.css">
+    <style>
+    nav {
+            width: 100%;
+            background-color: #ffff99;
+        }
+        ul {
+            cursor: pointer;          
+        }
+        li {
+            display: inline-block;
+            padding: 15px;
+        }     
+
+    </style>
+    <script>
+        var app = angular.module("task1", []);
+            app.controller("mainCtrl", ["$scope", function ($scope) {
+                $scope.items = [
+                    {name: "Table", price: 44.10},
+                    {name: "Chair", price: 21.20},
+                    {name: "Pillow", price: 12.20},
+                    {name: "Picture", price: 112.70},
+                    {name: "Lamp", price: 28.31}
+                ]
+                $scope.currentMenuItem = $scope.items[0].price;
+                $scope.currItem = function (key) {
+                    $scope.currentMenuItem = $scope.items[key].price;
+                }
+            }]);
+            app.directive("makeMenu", function () {
+                return {
+                    restrict: "A",
+                    template: "<nav><ul><li ng-repeat='item in items'ng-click='currItem($index)'><a>{{item.name}}</a></li></ul></nav>",
+                    scope: false,
+                    controller: "mainCtrl"
+                }
+            });
+            app.directive("getItems", function () {
+                return {
+                    restrict: "A",
+                    template: "<p>{{currentMenuItem}}</p>",
+                    scope: false,
+                    controller: "mainCtrl"
+                }
+            })
+    </script>
+</head>
+<body ng-controller="mainCtrl">
+    <div make-menu></div>
+    <div class="well" get-items></div>
+</body>
+</html>

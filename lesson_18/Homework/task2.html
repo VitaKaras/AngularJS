@@ -1,0 +1,52 @@
+<!doctype html>
+<html  ng-app="task2">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src=" ../Libraries/angular.js"></script>
+    <link rel="stylesheet" href="../Libraries/bootstrap.css">
+    <style>
+       .red {
+           color: red
+       }
+   </style>
+</head>
+<script>
+       angular.module("task2", [])
+       .controller("mainCtrl", function ($scope) {
+           $scope.items = ["Item1", "Item2", "Item3", "Item4"];
+       })
+       .directive("createList", function () {
+           return {
+               restrict: "A",
+               priority: 2,
+               link: function (scope, element, attr) {
+                   var items = scope.items;
+                   var ul = angular.element("<ul>");
+                   for (var i = 0; i < items.length; i++) {
+                       ul.append(angular.element("<li>").html(items[i]));
+                   }
+                   element.append(ul);
+               }
+           }
+       })
+       .directive("addStyle", function () {
+           return {
+               restrict: "A",
+               priority: 3,
+               link: function (scope, element, attr) {
+                   var itemsList = element.find("li");
+                   for (var i = 0; i < itemsList.length; i++) {
+                        if (i % 2) {
+                            angular.element(itemsList[i]).addClass("red");
+                        }
+                    }
+               }
+           }
+       })
+   </script>
+</head>
+<body ng-controller="mainCtrl">
+  <div class="well" create-list add-style></div>
+</body>
+</html>
