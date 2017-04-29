@@ -1,0 +1,27 @@
+<!doctype html>
+<html  ng-app="task3">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src=" ../Libraries/angular.js"></script>
+    <link rel="stylesheet" href="../Libraries/bootstrap.css">
+    <script>
+
+        var app = angular.module('task3', [])
+
+        .directive('customDirective', function () {
+            return {
+                restrict: 'AE',
+                //использовать трансклюзию
+                transclude: true,
+                //директива ngTransclude
+                template: "<div><button class='btn btn-primary' ng-transclude=></button></div>"
+            }
+        })
+
+    </script>
+</head>
+<body>
+   <div custom-directive>’myButton’</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html  ng-app="task1">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src=" ../Libraries/angular.js"></script>
+    <link rel="stylesheet" href="../Libraries/bootstrap.css">
+    <script>
+        var app = angular.module("task1", []);
+        app.controller("mainCtrl", ["$scope", "$interval", function ($scope, $interval) {
+            $scope.counter = 0;
+            $scope.startCounter = function () {
+                interval = $interval(function () {
+                    $scope.counter++;
+                }, 1000)
+            }
+        }]);
+        app.directive("newButton", function () {
+            return{
+                restrict: "A",
+                template: '<input type="button" class="btn-lg btn-success" ng-click="startCounter()" value="Start counter">',
+                controller: "mainCtrl"
+            }
+        }) 
+        app.directive("logBtn", function () {
+            return {
+                restrict: "A",
+                require: "newButton",
+                link: function (scope, elem, attributes) {
+                    scope.$watch('counter', function (value) {
+                        console.log("counter: " + value);
+                    });
+                }
+            }
+        });    
+    </script>            
+</head>
+    <body ng-controller="mainCtrl">
+        <div class="panel well">
+            <div new-button log-btn></div>
+        <h1>{{counter}}</h1>
+        </div>
+    </body>
+</html>
